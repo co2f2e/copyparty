@@ -6,14 +6,15 @@ USERNAME=$2
 PASSWORD=$3
 
 INSTALL_DIR="/root/copyparty"
-DATA_DIR="$INSTALL_DIR"
+DATA_DIR="$INSTALL_DIR/data"
+PUBLIC_DIR="$INSTALL_DIR/public"
 
 echo "[1/5] Installing dependencies..."
 apt update
 apt install -y python3 wget nginx
 
 echo "[2/5] Creating directories..."
-mkdir -p $INSTALL_DIR
+mkdir -p "$DATA_DIR" "$PUBLIC_DIR"
 
 echo "[3/5] Downloading copyparty..."
 wget -N https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py -O $INSTALL_DIR/copyparty-sfx.py
@@ -27,7 +28,7 @@ USERNAME="\$2"
 PASSWORD="\$3"
 DATA_DIR="$DATA_DIR"
 INSTALL_DIR="$INSTALL_DIR"
-/usr/bin/python3 $INSTALL_DIR/copyparty-sfx.py -v "$DATA_DIR:files:rw" -a "$USERNAME:$PASSWORD" --http-only --auth-all -p "$PORT" --xff-hdr x-forwarded-for --xff-src 127.0.0.1/32 --rproxy 1
+/usr/bin/python3 $INSTALL_DIR/copyparty-sfx.py" -v "$PUBLIC_DIR:public:g" -v "$DATA_DIR:files:$USERNAME:rw" -a "$USERNAME:$PASSWORD" --http-only --auth-all -p "$PORT" --xff-hdr x-forwarded-for --xff-src 127.0.0.1/32 --rproxy 1
 EOF
 
 chmod +x $INSTALL_DIR/start.sh
