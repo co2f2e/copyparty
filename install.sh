@@ -6,14 +6,14 @@ USERNAME=$2
 PASSWORD=$3
 
 INSTALL_DIR="/root/copyparty"
-DATA_DIR="$INSTALL_DIR/data"
+DATA_DIR="$INSTALL_DIR"
 
 echo "[1/5] Installing dependencies..."
 apt update
 apt install -y python3 wget nginx
 
 echo "[2/5] Creating directories..."
-mkdir -p $INSTALL_DIR $DATA_DIR
+mkdir -p $INSTALL_DIR
 
 echo "[3/5] Downloading copyparty..."
 wget -N https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py -O $INSTALL_DIR/copyparty-sfx.py
@@ -22,12 +22,12 @@ chmod +x $INSTALL_DIR/copyparty-sfx.py
 echo "[4/5] Creating start script..."
 cat > $INSTALL_DIR/start.sh <<EOF
 #!/bin/bash
-PORT="$1"      
-USERNAME="$2"   
-PASSWORD="$3"  
-DATA_DIR="/root/copyparty/data"
-INSTALL_DIR="/opt/copyparty"
-/usr/bin/python3 "$INSTALL_DIR/copyparty-sfx.py" -v "$DATA_DIR" -a "$USERNAME:$PASSWORD" --http-only -p "$PORT"
+PORT="\$1"
+USERNAME="\$2"
+PASSWORD="\$3"
+DATA_DIR="$DATA_DIR"
+INSTALL_DIR="$INSTALL_DIR"
+/usr/bin/python3 \$INSTALL_DIR/copyparty-sfx.py -v \$DATA_DIR -a "\$USERNAME:\$PASSWORD" --http-only -p \$PORT
 EOF
 
 chmod +x $INSTALL_DIR/start.sh
@@ -56,9 +56,15 @@ systemctl daemon-reload
 systemctl enable copyparty
 systemctl start copyparty
 
-echo "===================================="
-echo "Copyparty installed successfully!"
-echo "Access URL: http://<your-server-ip>/"
-echo "Username: $USERNAME"
-echo "Password: $PASSWORD"
-echo "===================================="
+sleep 3
+if curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:$PORT/ | grep -q "200"; then
+    echo "===================================="
+    echo "Copyparty installed successfully!"
+    echo "Access URL: http://<your-server-ip>:$PORT/"
+    echo "Username: $USERNAME"
+    echo "Password: $PASSWORD"
+    echo "===================================="
+else
+    echo "Copyparty service failed to start. Check logs with:"
+    echo "  sudo journalctl -u copyparty -f"
+fi
