@@ -35,7 +35,7 @@ PUBLIC_DIR="PUBLIC_DIR"
 chown root:root "$DATA_DIR"
 chmod 700 "$DATA_DIR"
 
-/usr/bin/python3 $INSTALL_DIR/copyparty-sfx.py -v "$PUBLIC_DIR:public:g" -v "$DATA_DIR:files:rw" -a "$USERNAME:$PASSWORD" --http-only -p "$PORT" --xff-hdr x-forwarded-for --xff-src 127.0.0.1/32 --rproxy 1
+/usr/bin/python3 $INSTALL_DIR/copyparty-sfx.py -v "$PUBLIC_DIR:public:g" -v "$DATA_DIR:files" -a "$USERNAME:$PASSWORD" --http-only -p "$PORT" --xff-hdr x-forwarded-for --xff-src 127.0.0.1/32 --rproxy 1
 EOF
 
 chmod +x $INSTALL_DIR/start.sh
