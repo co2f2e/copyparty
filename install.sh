@@ -32,11 +32,23 @@ Description=copyparty file server
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 $INSTALL_DIR/copyparty-sfx.py \\
-  -v $DATA_DIR \\
-  -a $USERNAME:$PASSWORD \\
-  --http 127.0.0.1 \\
-  -p $PORT
+[Unit]
+Description=copyparty file server
+After=network.target
+
+[Service]
+/usr/bin/python3 /opt/copyparty/copyparty-sfx.py -v /opt/copyparty/data -a "$USERNAME:$PASSWORD" --http-only -p $PORT
+
+WorkingDirectory=/opt/copyparty
+Restart=always
+RestartSec=5           
+StartLimitBurst=3       
+StartLimitIntervalSec=60 
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
 WorkingDirectory=$INSTALL_DIR
 Restart=always
 User=root
