@@ -12,6 +12,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/uninstal
 ```
 
 * Rule
+  
 | 路径         | 匿名用户      | 管理员     |
 |--------------|---------------|-----------|
 | `/`          | ✔ 可访问      | ✔ 可访问  |
