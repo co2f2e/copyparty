@@ -1,11 +1,12 @@
-# copyparty
-
-<hr>
+<h1 aligen="center">
+  copyparty
+</h1>
 
 * Installation
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/install.sh) 5800 username password
 ```
+
 * Uninstallation
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/uninstall.sh)
@@ -13,7 +14,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/uninstal
 
 * Rule
   
-| 路径         | 匿名用户      | 管理员     |
+| Path         | Anonymous user| Admin     |
 |--------------|---------------|-----------|
 | `/`          | ✔ 可访问      | ✔ 可访问  |
 | `/public`    | ✔ 下载        | ✔ 管理    |
