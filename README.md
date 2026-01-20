@@ -12,14 +12,14 @@ bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/install.
 bash <(curl -Ls https://raw.githubusercontent.com/co2f2e/copyparty/main/uninstall.sh)
 ```
 
-* Rule
+* Access
   
-| Path         | Anonymous user| Admin     |
-|--------------|---------------|-----------|
-| `/`          | ✔ 可访问      | ✔ 可访问  |
-| `/public`    | ✔ 下载        | ✔ 管理    |
-| `/private`   | ❌ 无权       | ✔ 全权    |
-| `/inbox`     | ❌ 无权       | ✔ 只投    |
-| `/sharex`    | ❌ 无权       | ✔ 全权    |
+| Path       | Anonymous User | Admin        |
+|------------|----------------|--------------|
+| `/`        | ✔ Access       | ✔ Access     |
+| `/public`  | ✔ Download     | ✔ Manage     |
+| `/private` | ❌ No Access   | ✔ Full Access|
+| `/inbox`   | ❌ No Access   | ✔ Upload Only|
+| `/sharex`  | ❌ No Access   | ✔ Full Access|
 
 
